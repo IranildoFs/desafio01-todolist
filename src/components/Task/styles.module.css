@@ -1,0 +1,89 @@
+.task {
+  padding: 1.2rem 1.2rem;
+  min-height: 4.5rem;
+  background-color: var(--gray-500);
+  border: 1px solid var(--gray-400);
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.task + .task {
+  margin-top: 0.75rem;
+}
+
+.rootCheckbox {
+  all: "unset";
+  margin-top: 3px;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.rootCheckbox[data-state="checked"] {
+  border-radius: 15px;
+  background-color: var(--purple-700);
+  border: 2px solid var(--purple-700);
+}
+
+.rootCheckbox[data-state="checked"]:hover {
+  background-color: var(--purple-500);
+  border: 2px solid var(--purple-500);
+}
+
+.rootCheckbox[data-state="unchecked"] {
+  border-radius: 15px;
+  border: 2px solid var(--blue-500);
+}
+
+.indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.check {
+  color: var(--gray-100);
+  font-size: 0.6rem;
+}
+
+.title {
+  width: 39rem;
+  margin-left: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray-100);
+}
+
+.title > p {
+  word-wrap: break-word;
+}
+
+.task > button {
+  background: transparent;
+  padding: 0.2rem 0.2rem;
+  border: 0;
+  color: var(--gray-300);
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 2px;
+}
+
+.task > button:hover {
+  color: var(--red-danger);
+  background: var(--gray-400);
+}
+
+.tached {
+  text-decoration: line-through;
+  color: var(--gray-300);
+}
