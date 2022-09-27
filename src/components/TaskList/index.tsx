@@ -20,10 +20,8 @@ export function TaskList() {
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
-    setTasks([
-      ...tasks,
-      { id: uuidv4(), title: newTaskTitle, isComplete: false },
-    ]);
+    const newTask = { id: uuidv4(), title: newTaskTitle, isComplete: false };
+    setTasks((state) => [...state, newTask]);
     setNewTaskTitle("");
   }
 
@@ -31,6 +29,7 @@ export function TaskList() {
     const taskWithotDeletedOne = tasks.filter((task) => {
       return task.id !== taskIdToDelete;
     });
+    countDoneTask(taskWithotDeletedOne);
     setTasks(taskWithotDeletedOne);
   }
 
@@ -43,11 +42,12 @@ export function TaskList() {
       }
       return task;
     });
+    countDoneTask(taskAllWithOneUpdate);
     setTasks(taskAllWithOneUpdate);
   }
 
-  function countDoneTask() {
-    const taskAllDone = tasks.reduce((total, task) => {
+  function countDoneTask(myTasks: TaskProps[]) {
+    const taskAllDone = myTasks.reduce((total, task) => {
       if (task.isComplete === true) return (total += 1);
       else return total;
     }, 0);
@@ -64,9 +64,9 @@ export function TaskList() {
     event.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
-  useEffect(() => {
-    countDoneTask();
-  }, [tasks]);
+  // useEffect(() => {
+  //   countDoneTask();
+  // }, [tasks]);
 
   return (
     <main className={styles.taskList}>
