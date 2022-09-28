@@ -8,7 +8,7 @@ export interface TaskProps {
   title: string;
   isComplete: boolean;
 }
-
+//entendendo que x, y, z poderia ser qualquer coisa... quebrando a regra do clean code soh para entender
 interface TaskAtributeProps {
   content: TaskProps;
   onDeleteTask: (x: string) => void;

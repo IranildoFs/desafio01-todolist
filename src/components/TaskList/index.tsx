@@ -16,7 +16,6 @@ import clipboard from "./../../assets/clipboard.svg";
 export function TaskList() {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [countTaskDone, setcountTaskDone] = useState(0);
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
@@ -29,7 +28,6 @@ export function TaskList() {
     const taskWithotDeletedOne = tasks.filter((task) => {
       return task.id !== taskIdToDelete;
     });
-    countDoneTask(taskWithotDeletedOne);
     setTasks(taskWithotDeletedOne);
   }
 
@@ -42,17 +40,8 @@ export function TaskList() {
       }
       return task;
     });
-    countDoneTask(taskAllWithOneUpdate);
+
     setTasks(taskAllWithOneUpdate);
-  }
-
-  function countDoneTask(myTasks: TaskProps[]) {
-    const taskAllDone = myTasks.reduce((total, task) => {
-      if (task.isComplete === true) return (total += 1);
-      else return total;
-    }, 0);
-
-    setcountTaskDone(taskAllDone);
   }
 
   function handleNewInputTaskChange(event: ChangeEvent<HTMLInputElement>) {
@@ -64,9 +53,10 @@ export function TaskList() {
     event.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
-  // useEffect(() => {
-  //   countDoneTask();
-  // }, [tasks]);
+  const taskAllDone = tasks.reduce((total, task) => {
+    if (task.isComplete === true) return (total += 1);
+    else return total;
+  }, 0);
 
   return (
     <main className={styles.taskList}>
@@ -94,7 +84,7 @@ export function TaskList() {
           <span className={styles.purple}> Concluídas</span>
           <div className={styles.contagem}>
             {tasks.length > 0
-              ? `${countTaskDone} de ${tasks.length}`
+              ? `${taskAllDone} de ${tasks.length}`
               : tasks.length}
           </div>
         </div>
