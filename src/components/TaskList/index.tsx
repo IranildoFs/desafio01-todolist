@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  InvalidEvent,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
 import { PlusCircle } from "phosphor-react";
 import { v4 as uuidv4 } from "uuid";
@@ -25,23 +19,26 @@ export function TaskList() {
   }
 
   function handleRemoveTask(taskIdToDelete: string) {
+    //imutabilidade
     const taskWithotDeletedOne = tasks.filter((task) => {
       return task.id !== taskIdToDelete;
     });
-    setTasks(taskWithotDeletedOne);
+    setTasks(() => {
+      return taskWithotDeletedOne;
+    });
   }
 
   function handleCheckTask(taskIdToCheck: string, check: boolean) {
     //imutabilidade
-    const allTask = [...tasks];
-    const taskAllWithOneUpdate = allTask.map((task) => {
-      if (task.id === taskIdToCheck) {
-        task.isComplete = check;
-      }
-      return task;
-    });
-
-    setTasks(taskAllWithOneUpdate);
+    setTasks((state) =>
+      state.map((task) => {
+        if (task.id === taskIdToCheck) {
+          return { ...task, isComplete: check };
+        } else {
+          return task;
+        }
+      })
+    );
   }
 
   function handleNewInputTaskChange(event: ChangeEvent<HTMLInputElement>) {
